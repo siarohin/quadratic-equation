@@ -1,53 +1,24 @@
 module.exports = function solveEquation(equation) {
-  // your implementation
-  // a*x^2 + b*x + c = 0
-  // 
-  // d = b^2 - 4a*c
-  //
-  // if d > 0 {                            // +++ 2 корня
-  //	x1 = (-b + sqrt d) / 2 * a
-  //    x2 = (-b - sqrt d) / 2 * a
-  // 
-  //  ********************************************************************
-  //
-  // if d = 0                             // --- 1 корень
-  //    x = -b / 2 * a
-  //
-  // id d < 0                             // --- Нет корней
-  //    
-  //
-  // !! *Each* equality has exact 2 *integer* solutions. Return those numbers as ordered array.
 
-  //
-  // 294 * x^2 - 141195558 * x - 1600964090384736   // equation
-  // [294,*,x^2;-;141195558;*;x;-;1600964090384736] // equation split
+  arr = equation.split(' '); 
+  const a = +(arr[0]), 
+        b = +(arr[3] + arr[4]),
+        c = +(arr[7] + arr[8]),
+  
+  discriminant = Math.pow(b, 2) - 4 * a * c;
 
-  var array = equation.split(' '); 
+  if (discriminant > 0) {
+      firstSolution = Math.round((-b + Math.sqrt(discriminant)) / (2 * a));
+      secondSolution = Math.round((-b - Math.sqrt(discriminant)) / (2 * a));
 
-  var a = +(array[0]);
-  var b = +(array[3] + array[4]);
-  var c = +(array[7] + array[8]);
+//  } else if (discriminant < 0) {
+//      console.log('This task has no solutions!');
 
-  var d = Math.pow(b, 2) - 4 * a * c;
-
-  if (d > 0) {
-    // Два корня
-    var x1 = Math.round((-b + Math.sqrt(d)) / (2 * a));
-    var x2 = Math.round((-b - Math.sqrt(d)) / (2 * a));
-  } else if (d < 0) {
-    // Нет корней
   } else {
-    var x1 = Math.round(-b / (2 * a));
-    var x2 = x1;
+      firstSolution = secondSolution = Math.round(-b / (2 * a));
+
   }
 
-  if (x1 < x2) {
-    var sort = [x1, x2];
-  }
-  else {
-    var sort = [x2, x1];
-  }
-
-  return sort;
+  return firstSolution < secondSolution ? sort = [firstSolution, secondSolution] : sort = [secondSolution, firstSolution];
   
 }
